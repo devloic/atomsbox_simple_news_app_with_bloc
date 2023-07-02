@@ -1,3 +1,4 @@
+import 'package:atomsbox_simple_news_app_with_bloc/news_data_source/in_memory_news_data_source.dart';
 import 'package:news_api_client/news_api_client.dart';
 
 import '../models/article.dart';
@@ -13,11 +14,13 @@ class NewsRepository {
   //   return Article.articles.where((article) => article.id == id).first;
   // }
 
-  Future<Article> getArticleById(String id) async {
+  Future<Article?> getArticleById(String id) async {
+    /*
     final article = await _newsApiClient.getArticleById(
       id: id,
       objectMapper: Article.fromJson,
-    );
+    );*/
+    final article = await InMemoryNewsDataSource().getArticleById(id: id);
     return article;
   }
 
@@ -27,8 +30,10 @@ class NewsRepository {
   // }
 
   Future<List<Article>> getPopularArticles() async {
+    /*
     final articles =
-        await _newsApiClient.getPopularArticles(objectMapper: Article.fromJson);
+        await _newsApiClient.getPopularArticles(objectMapper: Article.fromJson);*/
+    final articles = await InMemoryNewsDataSource().getPopularArticles();
     return articles;
   }
 
@@ -38,8 +43,10 @@ class NewsRepository {
   // }
 
   Future<List<Article>> getBreakingNewsArticles() async {
-    final articles = await _newsApiClient.getBreakingNewsArticles(
-        objectMapper: Article.fromJson);
+    /* final articles = await _newsApiClient.getBreakingNewsArticles(
+        objectMapper: Article.fromJson);*/
+    final articles = await InMemoryNewsDataSource().getBreakingNewsArticles();
+
     return articles;
   }
 
@@ -51,11 +58,12 @@ class NewsRepository {
   // }
 
   Future<List<Article>> getArticlesByCategory(NewsCategory category) async {
-    final articles = await _newsApiClient.getArticlesByCategory(
+    /*final articles = await _newsApiClient.getArticlesByCategory(
       newsCategory: category.name,
       objectMapper: Article.fromJson,
-    );
-
+    );*/
+    final articles = await InMemoryNewsDataSource()
+        .getArticlesByCategory(newsCategory: category.name);
     return articles;
   }
 }

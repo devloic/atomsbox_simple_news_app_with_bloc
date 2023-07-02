@@ -1,3 +1,4 @@
+import 'package:atomsbox_simple_news_app_with_bloc/news_data_source/in_memory_news_data_source.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
@@ -22,7 +23,9 @@ class NewsDetailsBloc extends Bloc<NewsDetailsEvent, NewsDetailsState> {
     Emitter<NewsDetailsState> emit,
   ) async {
     try {
-      Article article = await _newsRepository.getArticleById(event.articleId);
+      // Article article = await _newsRepository.getArticleById(event.articleId);
+      Article? article =
+          await InMemoryNewsDataSource().getArticleById(id: event.articleId);
 
       emit(
         state.copyWith(
